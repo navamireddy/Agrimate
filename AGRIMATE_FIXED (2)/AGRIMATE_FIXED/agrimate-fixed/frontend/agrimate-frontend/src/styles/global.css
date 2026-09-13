@@ -1,0 +1,336 @@
+/* ─────────────────────────────────────────────────
+   AGRIMATE GLOBAL STYLES
+   Aesthetic: Earthy Luxury — organic warmth meets
+   precision agriculture. Deep forest greens, warm
+   amber accents, parchment backgrounds.
+───────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+/* ── CSS Variables ─────────────────────────────── */
+:root {
+  /* Core palette */
+  --forest:    #1C3A1A;
+  --canopy:    #2D5A2B;
+  --leaf:      #4A8C47;
+  --sprout:    #7DBD79;
+  --mint:      #C8E6C7;
+
+  --soil:      #3D2410;
+  --bark:      #6B3E1F;
+  --clay:      #A0622A;
+
+  --amber:     #D4873A;
+  --gold:      #E8B84B;
+  --straw:     #F5D98A;
+
+  --parchment: #FAF6EE;
+  --cream:     #F4ECD8;
+  --linen:     #EDE3CC;
+  --paper:     #FFFDF8;
+
+  --mist:      #EEF5ED;
+  --fog:       rgba(255,255,255,0.07);
+
+  --ink:       #1A1208;
+  --charcoal:  #3A2E1E;
+  --stone:     #7A6A52;
+  --dust:      #B5A48A;
+
+  /* Semantics */
+  --primary:   var(--canopy);
+  --accent:    var(--amber);
+  --bg:        var(--parchment);
+  --surface:   var(--paper);
+  --border:    #DDD3BE;
+  --text:      var(--charcoal);
+  --text-muted: var(--stone);
+
+  /* Shadows */
+  --shadow-sm:  0 2px 8px rgba(61,36,16,0.08);
+  --shadow-md:  0 4px 20px rgba(61,36,16,0.12);
+  --shadow-lg:  0 12px 40px rgba(61,36,16,0.16);
+
+  /* Radius */
+  --radius:     14px;
+  --radius-sm:  8px;
+  --radius-lg:  20px;
+
+  /* Layout */
+  --sidebar-w: 248px;
+  --header-h:  64px;
+}
+
+/* ── Reset ─────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul, ol { list-style: none; }
+
+/* ── Utilities ─────────────────────────────────── */
+.display-font {
+  font-family: 'Playfair Display', serif;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--linen); }
+::-webkit-scrollbar-thumb {
+  background: var(--dust);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--clay); }
+
+/* ── Page Fade Animation ───────────────────────── */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.page-enter {
+  animation: pageEnter 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Focus styles ──────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--leaf);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Enhanced button styles ─────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--canopy), var(--forest));
+  color: white;
+  box-shadow: 0 2px 8px rgba(28,58,26,0.25);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--leaf), var(--canopy));
+  box-shadow: 0 4px 16px rgba(28,58,26,0.35);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--linen);
+  color: var(--forest);
+  border: 1.5px solid var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--mist);
+  border-color: var(--leaf);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--stone);
+  border: 1.5px solid var(--border);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--linen);
+}
+
+.btn--full  { width: 100%; }
+.btn--lg    { padding: 13px 24px; font-size: 15px; }
+
+/* ── Enhanced form inputs ───────────────────────── */
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--paper);
+  font-size: 14px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--leaf);
+  box-shadow: 0 0 0 3px rgba(74,140,71,0.12);
+}
+
+.form-input::placeholder {
+  color: var(--dust);
+}
+
+/* ── Alert boxes ────────────────────────────────── */
+.alert {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.alert--error {
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  color: #7a1e1e;
+}
+
+.alert--success {
+  background: #eafaea;
+  border: 1px solid #b2dfb2;
+  color: #1b5e20;
+}
+
+/* ── Badge ──────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge--amber {
+  background: #fef9ec;
+  color: var(--amber);
+  border: 1px solid rgba(212,135,58,0.3);
+}
+
+.badge--stone {
+  background: var(--linen);
+  color: var(--stone);
+}
+
+/* ── Grid layouts ───────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+/* ── Spinner ────────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+.spinner--dark {
+  border: 2px solid var(--linen);
+  border-top-color: var(--canopy);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ── Page enter animation ───────────────────────── */
+.page-enter {
+  animation: fadeUp 0.35s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Result container ───────────────────────────── */
+.result-container {
+  animation: fadeUp 0.3s ease both;
+}
+
+/* ── Responsive ─────────────────────────────────── */
+@media (max-width: 900px) {
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .app-content { padding: 24px 20px; }
+}
+
+@media (max-width: 640px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .app-main { margin-left: 0; }
+}
