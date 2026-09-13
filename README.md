@@ -1,122 +1,253 @@
-# 🌱 AgriMate 2.0 — Fixed & Enhanced
+# 🌱 AgriMate — AI-Powered Smart Agriculture System
 
-## What Was Fixed
-
-### 🔐 Login & Signup (FIXED)
-- Backend now returns `{ token, user }` — frontend saves both properly
-- Added input validation (email format, password length, duplicate accounts)
-- Password visibility toggle on login
-- Password strength meter on signup
-- Better error messages for all failure cases
-
-### 🌤 Weather — Real Live Data (FIXED)
-- Connected to OpenWeatherMap API (requires free API key)
-- Now returns: city, country, temperature, feels_like, humidity, wind, pressure, description
-- Proper error for missing API key or invalid city name
-
-### 📈 Market Prices — Realistic Data (IMPROVED)
-- Real Indian MSP (Minimum Support Price) base prices for 12 crops
-- Daily variance ±3% for realistic fluctuation
-- Shows MSP, season, trend, and smart suggestion per crop
-- Custom crop search with price estimation
-
-### 🔬 Disease Detection — Multiple Diseases (FIXED)
-- Now detects 7 different diseases (not just "Leaf Blight" every time)
-- Returns: disease name, confidence %, symptoms, solution, prevention, severity
-- Better UI showing all diagnosis fields
-- Image file validation (type + size check)
-
-### 🎨 UI Enhancements
-- Smoother animations and page transitions
-- Better button hover states
-- Form inputs with focus rings
-- Password strength meter
-- Responsive grid improvements
+> An intelligent agriculture decision-support platform integrating crop disease detection, soil analysis, weather monitoring, market intelligence, and farmer assistance.
 
 ---
 
-## Setup Instructions
+## 📌 Overview
 
-### 1. Backend Setup
+AgriMate is a smart agriculture platform designed to provide farmers with multiple agricultural insights through a unified system.
 
-```bash
-cd backend
+Instead of relying on separate tools for weather, crop health, soil information, and market prices, AgriMate brings these capabilities together into a single application.
 
-# Install dependencies
-npm install
+The platform combines:
 
-# Copy and fill in environment variables
-cp .env.example .env
-# Edit .env with your actual values (see below)
-
-# Start the backend
-node server.js
-```
-
-#### Required `.env` values:
-
-| Variable      | Where to get it |
-|---------------|-----------------|
-| `MONGO_URI`   | [MongoDB Atlas](https://cloud.mongodb.com) — free cluster |
-| `JWT_SECRET`  | Any random string (32+ characters) |
-| `WEATHER_KEY` | [OpenWeatherMap](https://openweathermap.org/api) — free tier |
-
-### 2. Frontend Setup
-
-```bash
-cd frontend/agrimate-frontend
-
-# Install dependencies
-npm install
-
-# Start the React dev server
-npm start
-```
-
-The frontend runs on http://localhost:3000 and proxies API calls to http://localhost:5000.
-
-Make sure your `package.json` has this proxy line:
-```json
-"proxy": "http://localhost:5000"
-```
+- 🌿 Crop disease detection
+- 🧪 Soil and nutrient analysis
+- 🌤️ Real-time weather information
+- 📈 Indian agricultural market intelligence
+- 💊 Fertilizer recommendations
+- 🤖 AI-powered agricultural assistance
+- 🔐 User authentication
+- 🎨 Responsive web interface
 
 ---
 
-## Disease Detection — Production Upgrade
+# ✨ Key Features
 
-The current disease detection uses heuristics. For real accuracy, integrate one of:
+## 🌿 1. Crop Disease Detection
 
-1. **PlantNet API** (free) — `https://my.plantnet.org/account/doc`
-2. **Google Cloud Vision** — Vision AI for plant disease
-3. **Roboflow** — host your own trained model
-4. **Plant.id API** — disease-specific plant API
+The system accepts plant images through the web interface and provides a disease diagnosis along with supporting information.
 
-Replace the `selectDisease()` function in `backend/routes/disease.js` with an API call.
+The current implementation provides:
+
+- Disease name
+- Confidence information
+- Symptoms
+- Suggested solution
+- Prevention guidance
+- Severity information
+- Image validation
+
+> **Note:** The current repository version uses a heuristic-based disease selection mechanism. A trained computer-vision model or specialized plant-disease API can be integrated as a future production upgrade.
 
 ---
 
-## Architecture
+## 🧪 2. Soil Analysis
 
-```
+AgriMate provides soil-related analysis using agricultural parameters such as:
+
+- Nitrogen (N)
+- Phosphorus (P)
+- Potassium (K)
+- Soil-related information
+
+The backend processes the available soil parameters and provides corresponding agricultural guidance.
+
+---
+
+## 🌤️ 3. Real-Time Weather Monitoring
+
+AgriMate integrates the **OpenWeatherMap API** to retrieve live weather information.
+
+The application provides:
+
+- City
+- Country
+- Temperature
+- Feels-like temperature
+- Humidity
+- Wind information
+- Atmospheric pressure
+- Weather description
+
+The API key is configured through environment variables.
+
+---
+
+## 📈 4. Agricultural Market Intelligence
+
+The market module provides crop-price information based on Indian Minimum Support Price (MSP) data.
+
+Features include:
+
+- MSP-based crop prices
+- Support for 12 crops
+- Seasonal information
+- Price trends
+- Smart suggestions
+- Custom crop search
+- Estimated price variation
+
+The current implementation applies a small daily variation to the base MSP values to simulate realistic price fluctuations.
+
+---
+
+## 💊 5. Fertilizer & Agricultural Recommendations
+
+The platform uses available agricultural information to provide recommendations related to crop and soil conditions.
+
+The objective is to move beyond displaying raw agricultural data and provide information in a form that can support farmer decision-making.
+
+---
+
+## 🤖 6. AI Agricultural Assistant
+
+AgriMate includes an AI-based agricultural assistant supported by a knowledge base.
+
+The project contains components for:
+
+- Agricultural knowledge retrieval
+- AI-based responses
+- Knowledge-base construction
+- Bot testing
+
+Relevant files include:
+
+```text
+ai_bot.py
+ai_bot_runner.py
+build_agri_db.py
+test_agri_bot.py
+knowledge_base/
+# 🏗️ System Architecture
+
+The overall architecture of AgriMate consists of a React-based frontend, an Express.js backend, external APIs, database services, agricultural analysis modules, and the AI agricultural assistant.
+
+```text
+                         FARMER
+                            │
+                            ▼
+                 ┌────────────────────┐
+                 │   React Frontend   │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │   Express Backend  │
+                 └─────────┬──────────┘
+                           │
+          ┌────────────────┼────────────────┐
+          │                │                │
+          ▼                ▼                ▼
+      Weather           Market           Soil
+        API              Data           Analysis
+          │                │                │
+          └────────────────┼────────────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Disease Module  │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ AI Assistant /  │
+                  │ Knowledge Base  │
+                  └────────┬────────┘
+                           │
+                           ▼
+                AGRICULTURAL INSIGHTS
+
+**Notice the three backticks.** They are important because they tell GitHub:
+
+> "Display this as a diagram/code block."
+
+---
+
+### 2. Technology Stack
+
+Immediately after the architecture section, add:
+
+```markdown
+# 🛠️ Technology Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React |
+| Backend | Node.js |
+| API Framework | Express.js |
+| Database | MongoDB |
+| Database ODM | Mongoose |
+| Authentication | JWT |
+| Weather API | OpenWeatherMap |
+| AI / Knowledge Base | Python |
+| Styling | CSS |
+| Version Control | Git & GitHub |
+
+**Notice the three backticks.** They are important because they tell GitHub:
+
+> "Display this as a diagram/code block."
+
+---
+
+### 2. Technology Stack
+
+Immediately after the architecture section, add:
+
+```markdown
+# 🛠️ Technology Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React |
+| Backend | Node.js |
+| API Framework | Express.js |
+| Database | MongoDB |
+| Database ODM | Mongoose |
+| Authentication | JWT |
+| Weather API | OpenWeatherMap |
+| AI / Knowledge Base | Python |
+| Styling | CSS |
+| Version Control | Git & GitHub |
+# 📂 Project Structure
+
+```text
 agrimate/
+│
 ├── backend/
-│   ├── .env.example          ← Copy to .env and fill in keys
-│   ├── server.js             ← Express app with env validation
-│   ├── models/User.js        ← Mongoose user model
+│   ├── .env.example
+│   ├── server.js
+│   │
+│   ├── models/
+│   │   └── User.js
+│   │
 │   └── routes/
-│       ├── auth.js           ← Register + Login (fixed)
-│       ├── weather.js        ← OpenWeatherMap proxy (fixed)
-│       ├── market.js         ← MSP-based prices (improved)
-│       ├── disease.js        ← Multi-disease detection (fixed)
-│       └── soil.js           ← NPK analysis (unchanged)
-└── frontend/agrimate-frontend/
-    └── src/
-        ├── pages/
-        │   ├── Login.js       ← Fixed auth flow + password toggle
-        │   ├── Signup.js      ← Fixed auth flow + strength meter
-        │   ├── Weather.js     ← Shows all weather fields
-        │   ├── Market.js      ← Shows MSP + season
-        │   └── DiseaseDetection.js ← Shows confidence + symptoms
-        └── styles/
-            └── global.css     ← Enhanced UI utilities
-```
+│       ├── auth.js
+│       ├── weather.js
+│       ├── market.js
+│       ├── disease.js
+│       └── soil.js
+│
+├── frontend/
+│   └── agrimate-frontend/
+│       │
+│       └── src/
+│           ├── pages/
+│           │   ├── Login.js
+│           │   ├── Signup.js
+│           │   ├── Weather.js
+│           │   ├── Market.js
+│           │   └── DiseaseDetection.js
+│           │
+│           └── styles/
+│               └── global.css
+│
+├── knowledge_base/
+│
+├── ai_bot.py
+├── ai_bot_runner.py
+├── build_agri_db.py
+├── test_agri_bot.py
+├── README.md
+└── .gitignore
