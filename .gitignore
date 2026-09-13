@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Generated uploads
+uploads/
+
+# Generated/local databases
+agri_vector_db/
+
+# Build files
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
