@@ -337,4 +337,4 @@ This project is developed for academic, research, and educational purposes.
 
 **AgriMate** — Developed as an intelligent smart-agriculture system combining web technologies, machine learning/AI components, external APIs, databases, and agricultural knowledge.
 
-GitHub: [https://github.com/navamireddy/Agrimate](https://github.com/navamireddy/Agrimate)
+GitHub: https://github.com/navamireddy/Agrimate/blob/main/README.md?plain=1
